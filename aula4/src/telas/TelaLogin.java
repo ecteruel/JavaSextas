@@ -31,8 +31,6 @@ public class TelaLogin extends javax.swing.JFrame {
         lblSenha = new javax.swing.JLabel();
         pswSenha = new javax.swing.JPasswordField();
         btnEntrar = new javax.swing.JButton();
-        lblMensagem = new javax.swing.JLabel();
-        btnCadastrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Acesso ao sistema");
@@ -64,36 +62,21 @@ public class TelaLogin extends javax.swing.JFrame {
         btnEntrar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnEntrar.setForeground(new java.awt.Color(102, 102, 102));
         btnEntrar.setText("Entrar");
-        getContentPane().add(btnEntrar);
-        btnEntrar.setBounds(20, 120, 130, 40);
-
-        lblMensagem.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        lblMensagem.setForeground(new java.awt.Color(102, 102, 102));
-        lblMensagem.setText("Não é cadastrado?");
-        getContentPane().add(lblMensagem);
-        lblMensagem.setBounds(180, 120, 140, 40);
-
-        btnCadastrar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        btnCadastrar.setForeground(new java.awt.Color(51, 51, 255));
-        btnCadastrar.setText("Cadastre-se");
-        btnCadastrar.setContentAreaFilled(false);
-        btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
+        btnEntrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCadastrarActionPerformed(evt);
+                btnEntrarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnCadastrar);
-        btnCadastrar.setBounds(290, 120, 120, 40);
+        getContentPane().add(btnEntrar);
+        btnEntrar.setBounds(20, 120, 130, 40);
 
         setSize(new java.awt.Dimension(493, 227));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-      TelaCadastroLogin t; //reserva um espaço na memória para a tela
-      t = new TelaCadastroLogin(); //coloca a tela na área de memória reservada
-      t.setVisible(true); //exibe a tela colocada na memória
-    }//GEN-LAST:event_btnCadastrarActionPerformed
+    private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
+        
+    }//GEN-LAST:event_btnEntrarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -131,9 +114,7 @@ public class TelaLogin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCadastrar;
     private javax.swing.JButton btnEntrar;
-    private javax.swing.JLabel lblMensagem;
     private javax.swing.JLabel lblSenha;
     private javax.swing.JLabel lblUsuario;
     private javax.swing.JPasswordField pswSenha;
