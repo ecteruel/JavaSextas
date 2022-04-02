@@ -26,20 +26,78 @@ public class TelaMenu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        barMenu = new javax.swing.JMenuBar();
+        mnuProdutos = new javax.swing.JMenu();
+        itmCadastrarProdutos = new javax.swing.JMenuItem();
+        itmAlterarProdutos = new javax.swing.JMenuItem();
+        itmConsultarProdutos = new javax.swing.JMenuItem();
+        itmExcluirProdutos = new javax.swing.JMenuItem();
+        mnuFuncionarios = new javax.swing.JMenu();
+        itmCadastrarFuncionarios = new javax.swing.JMenuItem();
+        itmAlterarFuncionarios = new javax.swing.JMenuItem();
+        itmConsultarFuncionarios = new javax.swing.JMenuItem();
+        itmExcluirFuncionarios = new javax.swing.JMenuItem();
+        mnuAjuda = new javax.swing.JMenu();
+        itmManual = new javax.swing.JMenuItem();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 476, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 337, Short.MAX_VALUE)
-        );
+        setTitle("Menu do sistema");
+        getContentPane().setLayout(null);
 
-        pack();
+        mnuProdutos.setMnemonic('P');
+        mnuProdutos.setText("Produtos");
+
+        itmCadastrarProdutos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.ALT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        itmCadastrarProdutos.setText("Cadastrar");
+        mnuProdutos.add(itmCadastrarProdutos);
+
+        itmAlterarProdutos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.ALT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        itmAlterarProdutos.setText("Alterar");
+        mnuProdutos.add(itmAlterarProdutos);
+
+        itmConsultarProdutos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.ALT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        itmConsultarProdutos.setText("Consultar");
+        mnuProdutos.add(itmConsultarProdutos);
+
+        itmExcluirProdutos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.ALT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        itmExcluirProdutos.setText("Excluir");
+        mnuProdutos.add(itmExcluirProdutos);
+
+        barMenu.add(mnuProdutos);
+
+        mnuFuncionarios.setMnemonic('F');
+        mnuFuncionarios.setText("Funcionários");
+
+        itmCadastrarFuncionarios.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        itmCadastrarFuncionarios.setText("Cadastrar");
+        mnuFuncionarios.add(itmCadastrarFuncionarios);
+
+        itmAlterarFuncionarios.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        itmAlterarFuncionarios.setText("Alterar");
+        mnuFuncionarios.add(itmAlterarFuncionarios);
+
+        itmConsultarFuncionarios.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        itmConsultarFuncionarios.setText("Consultar");
+        mnuFuncionarios.add(itmConsultarFuncionarios);
+
+        itmExcluirFuncionarios.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        itmExcluirFuncionarios.setText("Excluir");
+        mnuFuncionarios.add(itmExcluirFuncionarios);
+
+        barMenu.add(mnuFuncionarios);
+
+        mnuAjuda.setMnemonic('u');
+        mnuAjuda.setText("Ajuda");
+
+        itmManual.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_H, java.awt.event.InputEvent.ALT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        itmManual.setText("Manual de Instruções");
+        mnuAjuda.add(itmManual);
+
+        barMenu.add(mnuAjuda);
+
+        setJMenuBar(barMenu);
+
+        setSize(new java.awt.Dimension(706, 405));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     /**
@@ -78,5 +136,18 @@ public class TelaMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuBar barMenu;
+    private javax.swing.JMenuItem itmAlterarFuncionarios;
+    private javax.swing.JMenuItem itmAlterarProdutos;
+    private javax.swing.JMenuItem itmCadastrarFuncionarios;
+    private javax.swing.JMenuItem itmCadastrarProdutos;
+    private javax.swing.JMenuItem itmConsultarFuncionarios;
+    private javax.swing.JMenuItem itmConsultarProdutos;
+    private javax.swing.JMenuItem itmExcluirFuncionarios;
+    private javax.swing.JMenuItem itmExcluirProdutos;
+    private javax.swing.JMenuItem itmManual;
+    private javax.swing.JMenu mnuAjuda;
+    private javax.swing.JMenu mnuFuncionarios;
+    private javax.swing.JMenu mnuProdutos;
     // End of variables declaration//GEN-END:variables
 }

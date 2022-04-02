@@ -41,6 +41,11 @@ public class TelaLogin extends javax.swing.JFrame {
 
         txtUsuario.setBackground(new java.awt.Color(204, 204, 255));
         txtUsuario.setForeground(new java.awt.Color(255, 51, 51));
+        txtUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtUsuarioKeyPressed(evt);
+            }
+        });
         getContentPane().add(txtUsuario);
         txtUsuario.setBounds(90, 30, 260, 30);
 
@@ -52,6 +57,11 @@ public class TelaLogin extends javax.swing.JFrame {
 
         pswSenha.setBackground(new java.awt.Color(204, 204, 255));
         pswSenha.setForeground(new java.awt.Color(255, 51, 51));
+        pswSenha.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                pswSenhaKeyPressed(evt);
+            }
+        });
         getContentPane().add(pswSenha);
         pswSenha.setBounds(90, 70, 180, 30);
 
@@ -74,7 +84,7 @@ public class TelaLogin extends javax.swing.JFrame {
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
         try {
             // 1) Conectar no Banco de dados bdsistema
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             Connection conecta = DriverManager.getConnection("jdbc:mysql://localhost:3306/bdsistema","root","teruel");
              
            // 2) Verificar se o usuário está cadastrado na tabela usuarios
@@ -88,6 +98,8 @@ public class TelaLogin extends javax.swing.JFrame {
             if(!rs.next()){ //Verifica se a variável rs está vazia 
                 JOptionPane.showMessageDialog(null,"Usuário e/ou senha inválidos");
             }else { //verifica se o rs contém os dados retornados na consulta na tabela
+                txtUsuario.setText(""); // Limpa o campo txtUsuario
+                pswSenha.setText("");  // Limpa o campo senha
                 TelaMenu tela;
                 tela = new TelaMenu();
                 tela.setVisible(true);
@@ -100,6 +112,18 @@ public class TelaLogin extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Algum parâmetro do BD está incorreto " + ex.getMessage());
         }
     }//GEN-LAST:event_btnEntrarActionPerformed
+
+    private void txtUsuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsuarioKeyPressed
+        if(evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
+            pswSenha.requestFocus(); //Passa para o campo pswSenha
+        }
+    }//GEN-LAST:event_txtUsuarioKeyPressed
+
+    private void pswSenhaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pswSenhaKeyPressed
+        if(evt.getKeyCode()==java.awt.event.KeyEvent.VK_ENTER){
+           btnEntrar.doClick(); //Executa o botã Entrar automaticamente
+        }
+    }//GEN-LAST:event_pswSenhaKeyPressed
 
     /**
      * @param args the command line arguments
