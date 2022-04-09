@@ -84,11 +84,12 @@ public class TelaLogin extends javax.swing.JFrame {
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
         try {
             // 1) Conectar no Banco de dados bdsistema
+            Connection conecta;
+            PreparedStatement st;
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection conecta = DriverManager.getConnection("jdbc:mysql://localhost:3306/bdsistema","root","teruel");
-             
+            conecta = DriverManager.getConnection("jdbc:mysql://localhost:3306/bdsistema","root","teruel");
            // 2) Verificar se o usuário está cadastrado na tabela usuarios
-            PreparedStatement st = conecta.prepareStatement("SELECT * FROM usuarios WHERE usuario=? AND senha=?");
+            st = conecta.prepareStatement("SELECT * FROM usuarios WHERE usuario=? AND senha=?");
             st.setString(1, txtUsuario.getText());
             st.setString(2, pswSenha.getText());
             ResultSet rs = st.executeQuery(); //executa o SELECT
@@ -101,7 +102,7 @@ public class TelaLogin extends javax.swing.JFrame {
                 txtUsuario.setText(""); // Limpa o campo txtUsuario
                 pswSenha.setText("");  // Limpa o campo senha
                 TelaMenu tela;
-                tela = new TelaMenu();
+                tela = new TelaMenu(rs.getString("usuario"),rs.getString("cargo"));
                 tela.setVisible(true);
             }
             // 4) Desconectar do banco de dados
