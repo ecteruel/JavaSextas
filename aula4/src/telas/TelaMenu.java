@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import java.sql.ResultSet;
 
 public class TelaMenu extends javax.swing.JFrame {
 
@@ -66,6 +67,9 @@ public class TelaMenu extends javax.swing.JFrame {
         lblPreco = new javax.swing.JLabel();
         txtPreco = new javax.swing.JTextField();
         btnSalvar = new javax.swing.JButton();
+        btnBuscar = new javax.swing.JButton();
+        btnExcluir = new javax.swing.JButton();
+        btnSalvarAlteracoes = new javax.swing.JButton();
         barMenu = new javax.swing.JMenuBar();
         mnuProdutos = new javax.swing.JMenu();
         itmCadastrarProdutos = new javax.swing.JMenuItem();
@@ -81,6 +85,7 @@ public class TelaMenu extends javax.swing.JFrame {
         itmManual = new javax.swing.JMenuItem();
 
         setTitle("Menu do sistema");
+        setResizable(false);
         getContentPane().setLayout(null);
         getContentPane().add(lblSaudacao);
         lblSaudacao.setBounds(440, 0, 250, 40);
@@ -91,6 +96,12 @@ public class TelaMenu extends javax.swing.JFrame {
         lblCodigo.setText("Código:");
         pnlProdutos.add(lblCodigo);
         lblCodigo.setBounds(50, 40, 90, 30);
+
+        txtCodigo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCodigoActionPerformed(evt);
+            }
+        });
         pnlProdutos.add(txtCodigo);
         txtCodigo.setBounds(150, 40, 160, 30);
 
@@ -119,7 +130,34 @@ public class TelaMenu extends javax.swing.JFrame {
             }
         });
         pnlProdutos.add(btnSalvar);
-        btnSalvar.setBounds(50, 240, 120, 30);
+        btnSalvar.setBounds(40, 240, 120, 40);
+
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+        pnlProdutos.add(btnBuscar);
+        btnBuscar.setBounds(320, 40, 130, 30);
+
+        btnExcluir.setText("Excluir");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
+        pnlProdutos.add(btnExcluir);
+        btnExcluir.setBounds(170, 240, 120, 40);
+
+        btnSalvarAlteracoes.setText("Salvar alterações");
+        btnSalvarAlteracoes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarAlteracoesActionPerformed(evt);
+            }
+        });
+        pnlProdutos.add(btnSalvarAlteracoes);
+        btnSalvarAlteracoes.setBounds(300, 240, 170, 40);
 
         getContentPane().add(pnlProdutos);
         pnlProdutos.setBounds(30, 20, 670, 300);
@@ -138,14 +176,29 @@ public class TelaMenu extends javax.swing.JFrame {
 
         itmAlterarProdutos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.ALT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
         itmAlterarProdutos.setText("Alterar");
+        itmAlterarProdutos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itmAlterarProdutosActionPerformed(evt);
+            }
+        });
         mnuProdutos.add(itmAlterarProdutos);
 
         itmConsultarProdutos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.ALT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
         itmConsultarProdutos.setText("Consultar");
+        itmConsultarProdutos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itmConsultarProdutosActionPerformed(evt);
+            }
+        });
         mnuProdutos.add(itmConsultarProdutos);
 
         itmExcluirProdutos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.ALT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
         itmExcluirProdutos.setText("Excluir");
+        itmExcluirProdutos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itmExcluirProdutosActionPerformed(evt);
+            }
+        });
         mnuProdutos.add(itmExcluirProdutos);
 
         barMenu.add(mnuProdutos);
@@ -188,7 +241,20 @@ public class TelaMenu extends javax.swing.JFrame {
 
     private void itmCadastrarProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmCadastrarProdutosActionPerformed
         pnlProdutos.setVisible(true);
+        btnBuscar.setVisible(false);
+        btnSalvar.setVisible(true);
+        btnExcluir.setVisible(false);
+        btnSalvarAlteracoes.setVisible(false);
+        limpar();
     }//GEN-LAST:event_itmCadastrarProdutosActionPerformed
+
+    private void limpar() {
+        txtCodigo.setText("");
+        txtNome.setText("");
+        txtMarca.setText("");
+        txtPreco.setText("");
+        txtCodigo.requestFocus();
+    }
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         try {
@@ -202,15 +268,11 @@ public class TelaMenu extends javax.swing.JFrame {
             st.setString(1, txtCodigo.getText());
             st.setString(2, txtNome.getText());
             st.setString(3, txtMarca.getText());
-            st.setDouble(4, Double.parseDouble(txtPreco.getText().replace("," , ".")));
+            st.setDouble(4, Double.parseDouble(txtPreco.getText().replace(",", ".")));
             st.executeUpdate();
             JOptionPane.showMessageDialog(null, "Produto salvo com sucesso");
             //Limpar os campos
-            txtCodigo.setText("");
-            txtNome.setText("");
-            txtMarca.setText("");
-            txtPreco.setText("");
-            txtCodigo.requestFocus();
+            limpar();
             //Fecha a conexão com o Banco de dados
             conecta.close();
         } catch (ClassNotFoundException ex) {
@@ -224,6 +286,122 @@ public class TelaMenu extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_btnSalvarActionPerformed
+
+    private void itmConsultarProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmConsultarProdutosActionPerformed
+        pnlProdutos.setVisible(true);
+        btnSalvar.setVisible(false);
+        btnBuscar.setVisible(true);
+        btnExcluir.setVisible(false);
+        btnSalvarAlteracoes.setVisible(false);
+    }//GEN-LAST:event_itmConsultarProdutosActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        try {
+            //Conexão com o BD
+            Connection conecta;
+            PreparedStatement st;
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            conecta = DriverManager.getConnection("jdbc:mysql://localhost:3306/bdsistema", "root", "teruel");
+            //Buscando o produto pelo código na tabela do BD            
+            st = conecta.prepareStatement("SELECT * FROM produtos WHERE codigo = ?");
+            st.setString(1, txtCodigo.getText());
+            ResultSet rs = st.executeQuery();
+            //Verifica se o produto foi encontrato
+            if (rs.next()) { //Se encontrou o produto na tabela
+                //Exibir os dados nos campos do formulário
+                txtNome.setText(rs.getString("nome"));
+                txtMarca.setText(rs.getString("marca"));
+                txtPreco.setText(rs.getString("preco"));
+                btnExcluir.setVisible(true);
+                btnSalvarAlteracoes.setVisible(true);
+            } else { //Se não encontrou o produto
+                JOptionPane.showMessageDialog(null, "Código não encontrado");
+                txtCodigo.requestFocus();
+            }
+            //Desconecta do Banco de Dados
+            conecta.close();
+        } catch (ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, "O Driver não foi encontrado na library " + ex.getMessage());
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Algum parâmetro do BD está incorreto " + ex.getMessage());
+        }
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void txtCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoActionPerformed
+
+    }//GEN-LAST:event_txtCodigoActionPerformed
+
+    private void itmExcluirProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmExcluirProdutosActionPerformed
+        pnlProdutos.setVisible(true);
+        btnSalvar.setVisible(false);
+        btnExcluir.setVisible(false);
+        btnBuscar.setVisible(true);
+        btnSalvarAlteracoes.setVisible(false);
+        limpar();
+    }//GEN-LAST:event_itmExcluirProdutosActionPerformed
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        try {
+            //Conexão com o BD
+            Connection conecta;
+            PreparedStatement st;
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            conecta = DriverManager.getConnection("jdbc:mysql://localhost:3306/bdsistema", "root", "teruel");
+
+            st = conecta.prepareStatement("DELETE FROM produtos WHERE codigo = ?");
+            st.setString(1, txtCodigo.getText());
+            st.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Produto excluído com sucesso");
+            btnExcluir.setVisible(false);
+            btnSalvarAlteracoes.setVisible(false);
+
+            limpar();
+
+            conecta.close();
+        } catch (ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, "O Driver não foi encontrado na library " + ex.getMessage());
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Algum parâmetro do BD está incorreto " + ex.getMessage());
+        }
+
+    }//GEN-LAST:event_btnExcluirActionPerformed
+
+    private void itmAlterarProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmAlterarProdutosActionPerformed
+        pnlProdutos.setVisible(true);
+        btnSalvar.setVisible(false);
+        btnExcluir.setVisible(false);
+        btnBuscar.setVisible(true);
+        btnSalvarAlteracoes.setVisible(false);
+        limpar();
+    }//GEN-LAST:event_itmAlterarProdutosActionPerformed
+
+    private void btnSalvarAlteracoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarAlteracoesActionPerformed
+        try {
+            //Conexão com o BD
+            Connection conecta;
+            PreparedStatement st;
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            conecta = DriverManager.getConnection("jdbc:mysql://localhost:3306/bdsistema", "root", "teruel");
+
+            st = conecta.prepareStatement("UPDATE produtos SET nome = ?, marca = ?, preco = ? WHERE codigo = ?");
+            st.setString(1, txtNome.getText());
+            st.setString(2, txtMarca.getText());
+            st.setDouble(3, Double.parseDouble(txtPreco.getText()));
+            st.setString(4, txtCodigo.getText());
+            st.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Dados alterados com sucesso");
+            btnExcluir.setVisible(false);
+            btnSalvarAlteracoes.setVisible(false);
+            limpar();
+
+            conecta.close();
+        } catch (ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, "O Driver não foi encontrado na library " + ex.getMessage());
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Algum parâmetro do BD está incorreto " + ex.getMessage());
+        }
+
+    }//GEN-LAST:event_btnSalvarAlteracoesActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -259,7 +437,10 @@ public class TelaMenu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar barMenu;
+    private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnSalvar;
+    private javax.swing.JButton btnSalvarAlteracoes;
     private javax.swing.JMenuItem itmAlterarFuncionarios;
     private javax.swing.JMenuItem itmAlterarProdutos;
     private javax.swing.JMenuItem itmCadastrarFuncionarios;
