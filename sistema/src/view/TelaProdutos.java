@@ -81,12 +81,21 @@ public class TelaProdutos extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void limpar(){
+        txtCodigo.setText("");
+        txtNome.setText("");
+        txtMarca.setText("");
+        txtPreco.setText("");
+        txtCodigo.requestFocus();
+    }
+    
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         Produto prod;
         ProdutoDao dao;
         boolean conectou;
+        int salvou;
         
-        //Instanciar um objeto
+        //Instanciar um objeto - pegar os dados do form e colocar na capsula prod
         prod = new Produto(
                txtCodigo.getText(),
                txtNome.getText(),
@@ -98,8 +107,18 @@ public class TelaProdutos extends javax.swing.JFrame {
         dao = new ProdutoDao();
         //Chama o método conectar e recebe true ou  false como retorno
         conectou = dao.conectar();
-        if(conectou==true){
-            JOptionPane.showMessageDialog(null,"Conectado com sucesso");
+        if(conectou==true){ //Se conectou com o BD
+             salvou = dao.salvar(prod);
+             if (salvou==1){ //Conseguiu salvar
+                 JOptionPane.showMessageDialog(null,"Salvo com sucesso");
+                 limpar();
+             }else if (salvou==1062){ //Tentando duplicar o código
+                 JOptionPane.showMessageDialog(null,"Este código já está cadastrado");
+                 txtCodigo.setText("");
+                 txtCodigo.requestFocus();
+             } else {//Errou no comando INSERT
+                 JOptionPane.showMessageDialog(null,"Erro ao tentar salvar");                 
+             }
         }else{
             JOptionPane.showMessageDialog(null,"Erro na conexão");
         }
