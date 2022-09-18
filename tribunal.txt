@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE note
+[
+<!ELEMENT tribunal (nome,local)>
+<!ELEMENT nome (#PCDATA)>
+<!ELEMENT local (#PCDATA)>
+]>
+
+<tribunal>
+<nome>TRIBUNAL REGIONAL DO TRABALHO</nome>
+<local>Espírito Santo</local>
+</tribunal>
